@@ -67,14 +67,14 @@ public class AsterixController {
     }
 
     /**
-     * Retrieves a list of characters older than a specified age.
-     * Corresponds to the GET request at "/asterix/characters/olderthan/{age}".
+     * Retrieves a list of characters older than or equal to a specified age.
+     * Corresponds to the GET request at "/asterix/characters/minage/{age}".
      *
-     * @param age The minimum age (exclusive) to filter characters by (passed as a path variable).
-     * @return A {@link List} of {@link Character} objects older than the given age. Returns an empty list if none found.
+     * @param age The minimum age (inclusive) to filter characters by (passed as a path variable).
+     * @return A {@link List} of {@link Character} objects older than or equal to the given age. Returns an empty list if none found.
      */
-    @GetMapping("characters/olderthan/{age}")
-    public List<Character> getCharactersOlderThan(final @PathVariable Integer age) {
+    @GetMapping("characters/minage/{age}")
+    public List<Character> getCharactersOlderThanOrEqual(final @PathVariable Integer age) {
         return characterService.getCharactersOlderThanOrEqual(age);
     }
 
