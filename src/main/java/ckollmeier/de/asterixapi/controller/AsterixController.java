@@ -89,4 +89,6 @@ public class AsterixController {
     public Character addCharacter(final @RequestBody CharacterInputDTO character) {
         return characterService.addCharacter(character);
     }
+
+
 }
