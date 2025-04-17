@@ -130,4 +130,33 @@ public class CharacterService {
         characterRepository.delete(character);
         return character;
     }
+
+    /**
+     * Updates an existing character's information based on the provided data.
+     * <p>
+     * This method first retrieves the existing character by the given ID. If the character is not found,
+     * a {@link NotFoundException} is thrown. If found, the character's properties are updated based on the
+     * non-null and non-default values provided in the {@link CharacterInputDTO}. Only the name, age, and
+     * profession can be updated.
+     * </p>
+     *
+     * @param id        The unique ID of the character to update.
+     * @param character The {@link CharacterInputDTO} containing the updated data.
+     * @return The updated {@link Character} entity.
+     * @throws NotFoundException if no character with the given ID exists.
+     */
+    public Character updateCharacter(final String id, final CharacterInputDTO character) {
+        final Character existingCharacter = getCharacterById(id).orElseThrow(() -> new NotFoundException(String.format("Character with id '%s' not found", id)));
+        Character characterToUpdate = existingCharacter.withId(id);
+        if (character.name() != null) {
+            characterToUpdate = existingCharacter.withId(character.name());
+        }
+        if (character.age() != 0) {
+            characterToUpdate = existingCharacter.withAge(character.age());
+        }
+        if (character.profession() != null) {
+            characterToUpdate = existingCharacter.withProfession(character.profession());
+        }
+        return characterRepository.save(characterToUpdate);
+    }
 }

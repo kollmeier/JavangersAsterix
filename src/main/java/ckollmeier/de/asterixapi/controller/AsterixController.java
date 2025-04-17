@@ -8,7 +8,14 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 import ckollmeier.de.asterixapi.model.Character;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * REST Controller for managing Asterix characters.
@@ -109,6 +116,20 @@ public class AsterixController {
     @DeleteMapping("characters/remove")
     public Character removeCharacter(final @RequestBody String id) {
         return characterService.removeCharacter(id);
+    }
+
+    /**
+     * Updates an existing character in the collection by its ID.
+     * Corresponds to the PUT request at "/asterix/characters/update/{id}".
+     *
+     * @param id The ID of the character to update, provided as a path variable.
+     * @param character The updated character data provided in the request body as a {@link CharacterInputDTO}.
+     * @return The updated {@link Character} object.
+     * @throws NotFoundException if no character with the specified ID is found.
+     */
+    @PutMapping("characters/update/{id}")
+    public Character updateCharacter(final @PathVariable String id, final @RequestBody CharacterInputDTO character) {
+        return characterService.updateCharacter(id, character);
     }
 
 }
