@@ -75,7 +75,7 @@ public class AsterixController {
      */
     @GetMapping("characters/olderthan/{age}")
     public List<Character> getCharactersOlderThan(final @PathVariable Integer age) {
-        return characterService.getCharactersOlderThan(age);
+        return characterService.getCharactersOlderThanOrEqual(age);
     }
 
     /**
