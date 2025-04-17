@@ -15,6 +15,7 @@ import ckollmeier.de.asterixapi.model.Character;
 @RequiredArgsConstructor
 public class CharacterService {
     private final CharacterRepository characterRepository;
+    private final IdService idService;
 
     public List<Character> getCharacters() {
         return characterRepository.findAll();
@@ -33,10 +34,10 @@ public class CharacterService {
     }
 
     public Character addCharacter(final CharacterInputDTO characterInputDTO) {
-        return characterRepository.save(characterInputDTO.toCharacter().withId(UUID.randomUUID().toString()));
+        return characterRepository.save(characterInputDTO.toCharacter().withId(idService.generateId()));
     }
 
     public Character addCharacter(final Character character) {
-        return characterRepository.save(character.withId(UUID.randomUUID().toString()));
+        return characterRepository.save(character.withId(idService.generateId()));
     }
 }
