@@ -54,6 +54,12 @@ public class AsterixController {
                 .orElseThrow(() -> new NotFoundException(String.format("Character with name '%s' not found", name)));
     }
 
+    @GetMapping("characters/id/{id}")
+    public Character getCharacterById(final @PathVariable String id) {
+        return characterService.getCharacterById(id)
+                .orElseThrow(() -> new NotFoundException(String.format("Character with id '%s' not found", id)));
+    }
+
     /**
      * Retrieves a list of characters based on their profession.
      * Corresponds to the GET request at "/asterix/characters/profession/{profession}".

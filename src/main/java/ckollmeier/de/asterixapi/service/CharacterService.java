@@ -45,8 +45,17 @@ public class CharacterService {
      * @return An {@link Optional} containing the found {@link Character} if a match exists, otherwise an empty Optional.
      */
     public Optional<Character> getCharacterByName(final String name) {
-        // Wraps the potentially null result from the repository in an Optional
-        return Optional.ofNullable(characterRepository.findOneByName(name));
+        return characterRepository.findOneByName(name);
+    }
+
+    /**
+     * Finds a single character by their unique identifier.
+     *
+     * @param id The unique ID of the character to search for.
+     * @return An {@link Optional} containing the found {@link Character} if a match exists, otherwise an empty Optional.
+     */
+    public Optional<Character> getCharacterById(final String id) {
+        return characterRepository.findById(id);
     }
 
     /**
