@@ -1,6 +1,7 @@
 package ckollmeier.de.asterixapi.service;
 
 import ckollmeier.de.asterixapi.dto.CharacterInputDTO;
+import ckollmeier.de.asterixapi.exception.NotFoundException;
 import ckollmeier.de.asterixapi.repository.CharacterRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -110,5 +111,23 @@ public class CharacterService {
         }
         // Assigns a new ID and saves the character.
         return characterRepository.save(character.withId(idService.generateId()));
+    }
+
+    /**
+     * Removes a character from the repository by their unique ID.
+     * <p>
+     * This method first attempts to find the character by the given ID. If the character is not found,
+     * a {@link NotFoundException} is thrown. If found, the character is deleted from the repository.
+     * </p>
+     *
+     * @param id The unique ID of the character to remove.
+     * @return The {@link Character} entity that was removed.
+     * @throws NotFoundException if no character with the given ID exists.
+     */
+    public Character removeCharacter(final String id) {
+        final Character character = getCharacterById(id)
+                .orElseThrow(() -> new NotFoundException(String.format("Character with id '%s' not found", id)));
+        characterRepository.delete(character);
+        return character;
     }
 }
