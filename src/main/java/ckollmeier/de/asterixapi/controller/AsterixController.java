@@ -54,6 +54,14 @@ public class AsterixController {
                 .orElseThrow(() -> new NotFoundException(String.format("Character with name '%s' not found", name)));
     }
 
+    /**
+     * Retrieves a specific character by their unique identifier.
+     * Corresponds to the GET request at "/asterix/characters/id/{id}".
+     *
+     * @param id The unique ID of the character to retrieve (passed as a path variable).
+     * @return The {@link Character} object matching the given ID.
+     * @throws NotFoundException if no character with the specified ID is found.
+     */
     @GetMapping("characters/id/{id}")
     public Character getCharacterById(final @PathVariable String id) {
         return characterService.getCharacterById(id)
