@@ -1,0 +1,539 @@
+// --- Variables ---
+$font-stack: system-ui, Avenir, Helvetica, Arial, sans-serif;
+$line-height-base: 1.5;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+
+// Light Theme Colors (Initial :root) - Overridden later
+$color-light-text: rgba(255, 255, 255, 0.87);
+$color-light-bg: #242424;
+$color-light-link: #646cff;
+$color-light-link-hover: #535bf2;
+$color-light-button-bg: #888888;
+$color-light-button-text: #f9f9f9;
+$color-light-button-border-hover: #777777;
+$color-light-input-border: #777777;
+$color-light-input-label: #777777;
+$color-light-card-border: #888888;
+
+// Dark Theme Colors (Overrides in second :root)
+$color-dark-text: #213547;
+$color-dark-bg: #ffffff;
+$color-dark-link-hover: #747bff;
+$color-dark-button-bg: #f0f0f0;
+$color-dark-button-text: #777777; // Same as light border hover
+$color-dark-border: #1a1a1a; // Used for side-box border
+
+// Spacing
+$padding-base: 1rem;
+$padding-button-vertical: 0.1rem;
+$padding-button-horizontal: 0.5rem;
+$padding-button-action-vertical: 0.3rem; // Specific for form/card actions
+$padding-input-vertical: 0.1rem;
+$padding-input-horizontal: 1rem;
+$gap-list: 0.5rem;
+$gap-card-inner: 0.2rem;
+$gap-card-actions: 0.25rem;
+$gap-list-with-box: 2rem;
+$gap-side-column: 1rem;
+
+// --- Base Styles ---
+:root {
+  font-family: $font-stack;
+  line-height: $line-height-base;
+  font-weight: $font-weight-normal;
+
+  color-scheme: light; // Initial scheme
+  color: $color-light-text;
+  background-color: $color-light-bg;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: $font-weight-medium;
+  color: $color-light-link;
+  text-decoration: inherit;
+  &:hover {
+    color: $color-light-link-hover;
+  }
+}
+
+body {
+  margin: 0;
+  display: block;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+// --- Navigation ---
+nav {
+  ul {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    column-gap: $gap-card-actions;
+    row-gap: $gap-card-inner; // Use inner gap?
+    padding: $padding-base;
+    margin: 0; // Added for consistency
+    flex-wrap: wrap;
+    li {
+      flex-shrink: 1;
+      display: inline;
+      // Use specific action padding
+      line-height: 1;
+
+      a {
+        display: inline;
+        padding: $padding-button-action-vertical $padding-button-horizontal;
+        background-color: $color-light-button-bg;
+        color: $color-light-button-text;
+        border: 2px solid transparent;
+        border-radius: 0;
+        font-size: 1.1em;
+        font-weight: $font-weight-medium;
+        font-family: inherit;
+        cursor: pointer;
+        &.active {
+          border-bottom-color: $color-light-button-border-hover;
+        }
+      }
+    }
+  }
+
+}
+
+// --- Buttons & Links styled as Buttons ---
+%button-base {
+  width: auto;
+  display: block;
+  border-radius: 0;
+  border: 1px solid transparent;
+  padding: $padding-button-vertical $padding-button-horizontal;
+  background-color: $color-light-button-bg;
+  color: $color-light-button-text;
+  font-size: 1em;
+  font-weight: $font-weight-medium;
+  font-family: inherit;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $color-light-button-border-hover;
+  }
+
+  &:focus,
+  &:focus-visible {
+    // Keep vendor prefix for focus ring color for now
+    outline: 4px auto -webkit-focus-ring-color;
+  }
+}
+
+button, .button {
+  @extend %button-base;
+}
+
+// --- Input Widgets ---
+.input-widget {
+  display: inline-block;
+  padding: $padding-input-vertical $padding-input-horizontal;
+  border: 1px solid $color-light-input-border;
+  line-height: 1rem; // Added from form context
+
+  input {
+    outline: none;
+    border: none;
+    display: block;
+    line-height: inherit;
+    font-size: 1rem;
+    padding: 0;
+  }
+
+  label {
+    display: block;
+    font-size: 0.8rem;
+    padding: 0;
+    color: $color-light-input-label;
+  }
+}
+
+// --- Dark Theme Overrides ---
+// Note: This second :root rule will override the first one entirely in standard CSS.
+// In SCSS, it's better practice to use a class on body/html for theming,
+// but keeping structure similar to original CSS for now.
+:root {
+  color: $color-dark-text;
+  background-color: $color-dark-bg;
+
+  a:hover {
+    color: $color-dark-link-hover;
+  }
+
+  // Apply dark theme button styles
+  button, .button, nav li a {
+    background-color: $color-dark-button-bg;
+    color: $color-dark-button-text;
+  }
+  // Ensure hover on a.button gets the dark theme bg/color too
+  a.button:hover {
+    background-color: $color-dark-button-bg;
+    color: $color-dark-button-text;
+  }
+}
+
+// --- Utility Buttons ---
+a.close-button {
+  position: absolute;
+  top: $padding-base;
+  font-size: 1.5em;
+  right: $padding-base;
+  color: darkred;
+}
+
+.circle-button {
+  color: inherit;
+  &:hover {
+    color: inherit;
+  }
+  > *:first-child {
+    @extend %dot-base; // Apply dot styles to child
+  }
+}
+
+%dot-base { // Placeholder for dot styles
+  height: 50px;
+  width: 50px;
+  margin: auto;
+  background-color: #bbb; // Variable? $dot-bg: #bbb;
+  border-radius: 50%;
+  padding: $padding-base;
+  display: block;
+}
+
+.dot {
+  @extend %dot-base;
+}
+
+// --- Entity List & Card Placeholders ---
+
+%entity-list-base {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  column-gap: $gap-list;
+  row-gap: $gap-list;
+  flex-wrap: wrap;
+  position: relative;
+  margin: 0; // Added for consistency
+}
+
+%entity-card-base {
+  padding: $padding-base;
+  border: $color-light-card-border solid 1px; // Use variable
+  flex-grow: 1;
+  flex-basis: 25%;
+  max-width: 25%;
+  position: relative;
+  min-width: calc(200px + 2 * #{$padding-base}); // Ensure calculation works
+}
+
+%entity-card-inner-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  row-gap: $gap-list; // Use list gap for consistency?
+  column-gap: $gap-card-inner;
+  &, > form {
+    height: 100%;
+  }
+}
+
+%entity-card-detail-base {
+  display: block;
+  line-height: 1rem;
+  overflow: clip;
+  padding: 1.2rem 0 0.15rem; // Variables? $detail-padding-top: 1.2rem; $detail-padding-bottom: 0.15rem;
+  border: 1px transparent solid;
+  font-size: 1rem;
+  text-wrap: nowrap;
+  min-width: 200px;
+}
+
+%entity-card-actions-base {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-self: flex-end;
+  flex-wrap: wrap;
+  column-gap: $gap-card-actions;
+  row-gap: $gap-card-inner; // Use inner gap?
+  border-top: $color-light-button-border-hover solid 1px; // Use variable
+  padding-top: $gap-list; // Use list gap?
+  flex-grow: 1; // Common from combined name/actions rule
+  width: 100%;  // Common from combined name/actions rule
+}
+
+%entity-card-action-item-base {
+  flex-shrink: 1;
+  width: fit-content;
+  display: inline;
+  // Use specific action padding
+  padding: $padding-button-action-vertical $padding-button-horizontal;
+  line-height: 1;
+}
+
+
+// --- Applying Placeholders & Specific Styles ---
+
+ul.character-list,
+ul.village-list {
+  @extend %entity-list-base;
+}
+
+li.character-card,
+li.village-card {
+  @extend %entity-card-base;
+
+  > div { // Style the direct child div
+    @extend %entity-card-inner-div;
+  }
+}
+
+// Character Specific Styles
+li.character-card {
+  .character-name,
+  .character-profession,
+  .character-age,
+  .character-village {
+    @extend %entity-card-detail-base;
+  }
+
+  .character-name,
+  .character-actions {
+    flex-grow: 1;
+    width: 100%;
+  }
+
+  .character-name {
+    font-weight: bold;
+  }
+
+  .character-profession {
+    flex-grow: 1;
+    width: auto;
+    flex-basis: 1%;
+  }
+
+  .character-village {
+    flex-grow: 1;
+    width: auto;
+    flex-basis: 100%;
+  }
+
+  .character-age {
+    flex-grow: 1;
+    flex-basis: 1%;
+  }
+
+  .character-actions {
+    @extend %entity-card-actions-base;
+    a, button {
+      @extend %entity-card-action-item-base;
+    }
+  }
+}
+
+// Village Specific Styles
+li.village-card {
+  // Apply base detail styles to relevant village elements
+  // Adjust class names (.village-inhabitants etc.) as needed for your HTML
+  .village-name,
+  .village-inhabitants { // Assuming villages don't have profession/age shown this way
+    @extend %entity-card-detail-base;
+  }
+
+  .village-name,
+  .village-actions {
+    flex-grow: 1;
+    width: 100%;
+  }
+
+  .village-name {
+    font-weight: bold;
+  }
+
+  // Add specific styles for village details if needed, e.g.:
+  .village-inhabitants {
+    flex-grow: 1;
+    width: auto;
+    flex-basis: 100%; // Example, adjust as needed
+    text-wrap: wrap;
+    line-height: 1.2;
+    > span:not(:last-child)::after {
+      content: ", ";
+    }
+  }
+
+  .village-actions {
+    @extend %entity-card-actions-base;
+    a, button {
+      @extend %entity-card-action-item-base;
+    }
+  }
+}
+
+
+// --- Layout: List With Box ---
+.list-with-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap-reverse;
+  column-gap: $gap-list-with-box;
+  row-gap: $gap-side-column; // Use side column gap?
+  padding: $padding-base;
+
+  // Nested list styles
+  .character-list,
+  .village-list {
+    flex-grow: 1;
+    flex-basis: 40%;
+    align-items: stretch; // This was on character-list only, applying to both now
+    width: auto;
+    min-width: 50%;
+    // margin: 0; // Already handled by %entity-list-base
+  }
+
+  // Nested side column styles
+  .side-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    row-gap: $gap-side-column;
+    align-items: flex-start;
+    flex-grow: 1;
+    flex-basis: 25%;
+    width: auto;
+    margin: 0;
+
+    nav {
+      padding: 0; // Override nav padding
+      ul {
+        padding: 0; // Override nav ul padding
+        margin: 0;
+      }
+    }
+  }
+}
+
+// --- Side Box ---
+.side-box {
+  position: relative;
+  border: $color-dark-border solid 1px; // Use dark theme border color
+  padding: $padding-base;
+
+  h1:first-child,
+  h2:first-child,
+  h3:first-child,
+  h4:first-child,
+  h5:first-child,
+  h6:first-child {
+    margin-top: 0;
+  }
+}
+
+// --- Forms ---
+form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  row-gap: $gap-list; // Use list gap?
+  column-gap: $gap-card-inner; // Use card inner gap?
+
+  > .input-widget {
+    flex-grow: 1;
+    flex-basis: 1%;
+    // line-height: 1rem; // Already in .input-widget base
+
+    // Specific input types taking full width
+    &.input-name,
+    &.input-village { // Assuming .input-village is used for the select wrapper
+      flex-basis: 100%;
+    }
+  }
+
+  button {
+    // Use specific action padding for form buttons
+    padding: $padding-button-action-vertical $padding-button-horizontal;
+  }
+
+  // React Select Overrides (nested within form)
+  .select {
+    &__control {
+      border-color: transparent;
+      border-radius: 0;
+      border-style: solid;
+      border-width: 0;
+      box-shadow: none;
+      min-height: unset;
+      line-height: inherit;
+      font-size: inherit;
+      background-color: transparent; // Ensure consistency
+    }
+
+    &__value-container {
+      padding: 0;
+    }
+
+    &__indicator-separator {
+      display: none;
+    }
+
+    &__input-container {
+      margin: 0;
+      padding: 0;
+    }
+
+    &__indicator {
+      padding: 0;
+      svg {
+        margin-top: -0.4rem; // Keep specific adjustment
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+    }
+
+    &__menu {
+      margin: 0.2rem (-$padding-input-horizontal) 0 (-$padding-input-horizontal); // Use variable
+      width: calc(100% + 2 * #{$padding-input-horizontal}); // Use variable
+      border-radius: 0;
+      box-shadow: 0 0 0 1px $color-dark-border; // Use dark theme border
+      border-top: 0 solid transparent;
+      background-color: $color-dark-bg; // Ensure menu bg matches theme
+      color: $color-dark-text; // Ensure menu text matches theme
+    }
+  }
+}
+
+// --- Centered Utility ---
+.centered {
+  margin: auto;
+  width: 50%;
+  padding: 10px; // Variable? $padding-centered: 10px;
+  text-align: center;
+  display: block;
+}
