@@ -1,6 +1,5 @@
 package ckollmeier.de.asterixapi.service;
 
-import ckollmeier.de.asterixapi.converter.CharacterOutputDTOConverter;
 import ckollmeier.de.asterixapi.converter.VillageConverter;
 import ckollmeier.de.asterixapi.dataprovider.VillagesPageDataProvider;
 import ckollmeier.de.asterixapi.dto.*; // Import all DTOs
@@ -117,11 +116,7 @@ class VillageServiceTest {
     @DisplayName("getVillagesPageData should return DTO from data provider")
     void getVillagesPageData_shouldReturnDtoFromDataProvider() {
         // Given
-        List<CharacterSelectDTO> characterSelects = List.of(new CharacterSelectDTO(testCharId1, "Asterix", testVillageId1, testVillage1.name()));
-        // Output DTO needs inhabitants, let's mock a simple one
-        List<MinimalCharacterOutputDTO> inhabitants = List.of(new MinimalCharacterOutputDTO(testCharId1, "Asterix", 35, "Warrior"));
-        List<VillageOutputDTO> villageOutputs = List.of(new VillageOutputDTO(testVillageId1, testVillage1.name(), inhabitants));
-        VillagesPageDTO expectedDto = new VillagesPageDTO(villageOutputs, characterSelects);
+        VillagesPageDTO expectedDto = getVillagesPageDTO();
         when(villagePageDataProvider.providePageData()).thenReturn(expectedDto);
 
         // When
@@ -131,6 +126,14 @@ class VillageServiceTest {
         assertThat(actualDto).isEqualTo(expectedDto);
         verify(villagePageDataProvider, times(1)).providePageData();
         verifyNoMoreInteractions(villagePageDataProvider);
+    }
+
+    private VillagesPageDTO getVillagesPageDTO() {
+        List<CharacterSelectDTO> characterSelects = List.of(new CharacterSelectDTO(testCharId1, "Asterix", testVillageId1, testVillage1.name()));
+        // Output DTO needs inhabitants, let's mock a simple one
+        List<MinimalCharacterOutputDTO> inhabitants = List.of(new MinimalCharacterOutputDTO(testCharId1, "Asterix", 35, "Warrior"));
+        List<VillageOutputDTO> villageOutputs = List.of(new VillageOutputDTO(testVillageId1, testVillage1.name(), inhabitants));
+        return new VillagesPageDTO(villageOutputs, characterSelects);
     }
 
     @Nested
