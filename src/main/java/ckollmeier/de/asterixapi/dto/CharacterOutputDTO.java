@@ -1,9 +1,10 @@
 package ckollmeier.de.asterixapi.dto;
 
-public record CharacterInputDTO(
+public record CharacterOutputDTO(
+        String id,
         String name,
         int age,
         String profession,
-        String villageId
+        MinimalVillageOutputDTO village
 ) {
 }
