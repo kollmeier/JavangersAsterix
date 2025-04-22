@@ -20,7 +20,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -209,8 +208,6 @@ class VillageDataProviderTest {
             when(villageRepository.findAll()).thenReturn(villagesFromRepo);
             // Mock findByVillageIn even with empty list input, should return empty
             when(characterRepository.findByVillageIn(villagesFromRepo)).thenReturn(charactersFromRepo);
-
-            List<VillageOutputDTO> expectedDtoList = Collections.emptyList();
 
             // When
             List<VillageOutputDTO> actualDtoList = villageDataProvider.provideListForOutput();

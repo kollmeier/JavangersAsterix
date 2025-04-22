@@ -1,6 +1,5 @@
 package ckollmeier.de.asterixapi.dataprovider;
 
-import ckollmeier.de.asterixapi.converter.CharacterOutputDTOConverter; // Static usage
 import ckollmeier.de.asterixapi.dto.CharacterOutputDTO;
 import ckollmeier.de.asterixapi.dto.CharacterSelectDTO;
 import ckollmeier.de.asterixapi.dto.MinimalVillageOutputDTO;

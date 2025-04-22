@@ -7,7 +7,6 @@ import ckollmeier.de.asterixapi.dto.VillageInputDTO;
 import ckollmeier.de.asterixapi.dto.VillageOutputDTO;
 import ckollmeier.de.asterixapi.dto.VillagesPageDTO;
 import ckollmeier.de.asterixapi.exception.NotFoundException;
-import ckollmeier.de.asterixapi.extractor.CharacterExtractor;
 import ckollmeier.de.asterixapi.model.Character;
 import ckollmeier.de.asterixapi.model.Village;
 import ckollmeier.de.asterixapi.repository.CharacterRepository;

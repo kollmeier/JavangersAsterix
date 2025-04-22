@@ -29,6 +29,9 @@ public class CharacterService {
      * Repository for accessing character data persistence.
      */
     private final CharacterRepository characterRepository;
+    /**
+     * Repository for accessing village data persistence.
+     */
     private final VillageRepository villageRepository;
     /**
      * Data provider for aggregating data needed for the characters page view.

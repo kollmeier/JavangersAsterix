@@ -22,7 +22,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -286,9 +285,7 @@ class CharacterServiceTest {
             Character characterWithId = testCharacter1; // Already has an ID
 
             // When / Then
-            assertThrows(IllegalArgumentException.class, () -> {
-                characterService.addCharacter(characterWithId);
-            }, "IllegalArgumentException should be thrown");
+            assertThrows(IllegalArgumentException.class, () -> characterService.addCharacter(characterWithId), "IllegalArgumentException should be thrown");
 
             // Then (verify no side effects)
             verifyNoInteractions(idService);
@@ -324,9 +321,7 @@ class CharacterServiceTest {
             when(characterRepository.findById(nonExistentId)).thenReturn(Optional.empty());
 
             // When / Then
-            NotFoundException exception = assertThrows(NotFoundException.class, () -> {
-                characterService.removeCharacter(nonExistentId);
-            }, "NotFoundException should be thrown");
+            NotFoundException exception = assertThrows(NotFoundException.class, () -> characterService.removeCharacter(nonExistentId), "NotFoundException should be thrown");
 
             // Then (verify exception details and no side effects)
             assertThat(exception.getMessage()).contains(nonExistentId);
@@ -478,9 +473,7 @@ class CharacterServiceTest {
             when(characterRepository.findById(nonExistentId)).thenReturn(Optional.empty());
 
             // When / Then
-            NotFoundException exception = assertThrows(NotFoundException.class, () -> {
-                characterService.updateCharacter(nonExistentId, testCharacterInputDTO);
-            }, "NotFoundException should be thrown");
+            NotFoundException exception = assertThrows(NotFoundException.class, () -> characterService.updateCharacter(nonExistentId, testCharacterInputDTO), "NotFoundException should be thrown");
 
             // Then (verify exception details and no side effects)
             assertThat(exception.getMessage()).contains(nonExistentId);

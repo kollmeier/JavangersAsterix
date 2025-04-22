@@ -215,15 +215,6 @@ class VillageServiceTest {
             Character charToUpdate = new Character(testCharId1, "Asterix", 35, "Warrior", null); // Character before update
             Character updatedChar = charToUpdate.withVillage(savedVillage); // Character after update
 
-            // Expected DTO uses the saved village and the *updated* character
-            // We rely on the static converter, so we need to ensure the inputs it receives are correct
-            // The converter itself isn't mocked here, but its inputs are based on our mocks.
-            VillageOutputDTO expectedDto = new VillageOutputDTO(
-                    savedVillage.id(),
-                    savedVillage.name(),
-                    List.of(CharacterOutputDTOConverter.convertMinimal(updatedChar)) // Simulate conversion result
-            );
-
             when(villageConverter.convert(testVillageInputDTO)).thenReturn(villageFromConverter);
             when(idService.generateId()).thenReturn(generatedId);
             when(villageRepository.save(any(Village.class))).thenReturn(savedVillage);
@@ -252,9 +243,9 @@ class VillageServiceTest {
             verify(characterRepository, times(1)).findByIdIn(testVillageInputDTO.characterIds());
             verify(characterRepository, times(1)).saveAll(characterListCaptor.capture());
             assertThat(characterListCaptor.getValue()).hasSize(1);
-            assertThat(characterListCaptor.getValue().get(0).id()).isEqualTo(testCharId1);
+            assertThat(characterListCaptor.getValue().getFirst().id()).isEqualTo(testCharId1);
             // Crucially, check the village was assigned *before* saveAll
-            assertThat(characterListCaptor.getValue().get(0).village()).isEqualTo(savedVillage);
+            assertThat(characterListCaptor.getValue().getFirst().village()).isEqualTo(savedVillage);
         }
     }
 
@@ -293,9 +284,7 @@ class VillageServiceTest {
             Village villageWithId = testVillage1; // Already has an ID
 
             // When / Then
-            IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-                villageService.addVillage(villageWithId);
-            }, "IllegalArgumentException should be thrown");
+            IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> villageService.addVillage(villageWithId), "IllegalArgumentException should be thrown");
 
             assertThat(exception.getMessage()).isEqualTo("Village id is already set");
 
@@ -350,9 +339,7 @@ class VillageServiceTest {
             when(villageRepository.findById(nonExistentId)).thenReturn(Optional.empty());
 
             // When / Then
-            NotFoundException exception = assertThrows(NotFoundException.class, () -> {
-                villageService.removeVillage(nonExistentId);
-            }, "NotFoundException should be thrown");
+            NotFoundException exception = assertThrows(NotFoundException.class, () -> villageService.removeVillage(nonExistentId), "NotFoundException should be thrown");
 
             // Then (verify exception and no side effects)
             assertThat(exception.getMessage()).contains(nonExistentId);
@@ -381,6 +368,7 @@ class VillageServiceTest {
             // Mock finding the village
             when(villageRepository.findById(testVillageId1)).thenReturn(Optional.of(testVillage1));
             // Mock finding *initial* inhabitants, then target
+            //noinspection unchecked
             when(characterRepository.findByVillageId(testVillageId1)).thenReturn(
                     initialInhabitants,
                     targetInhabitantsFromDto);
@@ -393,12 +381,6 @@ class VillageServiceTest {
             // Mock saving the updated village (only name should change based on getVillage helper)
             Village villageWithUpdatedName = testVillage1.withName(updatedName);
             when(villageRepository.save(any(Village.class))).thenReturn(villageWithUpdatedName);
-
-            // Mock finding final inhabitants for DTO conversion (after updates)
-            // Geriatrix (char3) should now belong to village1
-            Character updatedChar3 = testCharacter3.withVillage(villageWithUpdatedName); // Use the saved village reference
-            List<Character> finalInhabitantsForDto = List.of(testCharacter1, updatedChar3); // Asterix, Geriatrix (updated)
-
 
             // When
             VillageOutputDTO actualDto = villageService.updateVillage(testVillageId1, updateDto);
@@ -494,9 +476,7 @@ class VillageServiceTest {
             when(villageRepository.findById(nonExistentId)).thenReturn(Optional.empty());
 
             // When / Then
-            NotFoundException exception = assertThrows(NotFoundException.class, () -> {
-                villageService.updateVillage(nonExistentId, testVillageInputDTO);
-            }, "NotFoundException should be thrown");
+            NotFoundException exception = assertThrows(NotFoundException.class, () -> villageService.updateVillage(nonExistentId, testVillageInputDTO), "NotFoundException should be thrown");
 
             // Then (verify exception and no side effects)
             assertThat(exception.getMessage()).contains(nonExistentId);

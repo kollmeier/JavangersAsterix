@@ -3,7 +3,6 @@ package ckollmeier.de.asterixapi.converter;
 import ckollmeier.de.asterixapi.dto.VillageIdDTO;
 import ckollmeier.de.asterixapi.dto.VillageInputDTO;
 import ckollmeier.de.asterixapi.model.Village;
-import ckollmeier.de.asterixapi.repository.CharacterRepository;
 import ckollmeier.de.asterixapi.repository.VillageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,10 +20,6 @@ public class VillageConverter {
      * Repository for accessing village data, used to link a village to its village during conversion.
      */
     private final VillageRepository villageRepository;
-    /**
-     * Repository for accessing village data, used to find existing villages by ID during conversion.
-     */
-    private final CharacterRepository characterRepository;
 
     /**
      * Converts a {@link VillageInputDTO} (typically used for creating new villages)

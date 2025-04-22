@@ -1,6 +1,5 @@
 package ckollmeier.de.asterixapi.controller;
 
-import ckollmeier.de.asterixapi.converter.CharacterConverter;
 import ckollmeier.de.asterixapi.dataprovider.CharacterDataProvider;
 import ckollmeier.de.asterixapi.dto.CharacterIdDTO;
 import ckollmeier.de.asterixapi.dto.CharacterInputDTO;
