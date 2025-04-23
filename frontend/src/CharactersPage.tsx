@@ -16,8 +16,20 @@ const CharactersPage: React.FC = () => {
     const [characters, setCharacters] = useState<Character[]>([]);
     const [villageOptions, setVillageOptions] = useState<{ value: string; label: string }[]>([]);
     const [editingCharacter, setEditingCharacter] = useState<Character | null>(null);
+    const [professions, setProfessions] = useState<{ value: string; label: string }[]>([]);
 
     const characterId = useParams().characterId;
+
+    function onlyUnique(value: { value: string; label: string }, index: number, array: { value: string; label: string }[]) {
+        return array.indexOf(value) === index;
+    }
+
+    useEffect(() => {
+        setProfessions(characters
+            .map((character) => {return {value: character.profession, label: character.profession}})
+            .filter(onlyUnique)
+            .sort((a, b) => a.value.localeCompare(b.value)));
+    }, [characters]);
 
     useEffect(() => {
         toast.promise(
@@ -90,8 +102,11 @@ const CharactersPage: React.FC = () => {
                         {((editingCharacter?.id ?? characterId) !== character.id) ? (
                             <CharacterCard character={character}/>
                         ) : (
-                            <CharacterEdit character={character} setCharacters={setCharacters}
-                                                               setEditingCharacter={setEditingCharacter} villageOptions={villageOptions}/>
+                            <CharacterEdit character={character}
+                                           setCharacters={setCharacters}
+                                           setEditingCharacter={setEditingCharacter}
+                                           villageOptions={villageOptions}
+                                           professions={professions}/>
                         )}
                     </li>
                 ))}

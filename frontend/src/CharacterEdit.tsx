@@ -8,15 +8,17 @@ import { faClose } from "@fortawesome/free-solid-svg-icons/faClose";
 import {toast} from "react-toastify";
 import { faSave } from "@fortawesome/free-solid-svg-icons/faSave";
 import Select from "react-select";
+import CreatableSelect from "react-select/creatable";
 
 interface Props {
     setCharacters: React.Dispatch<React.SetStateAction<Character[]>>
     setEditingCharacter?: React.Dispatch<React.SetStateAction<Character | null>>
     character: Character;
     villageOptions: { value: string; label: string }[];
+    professions: { value: string; label: string }[];
 }
 
-const CharacterEdit = ({ setCharacters, character, setEditingCharacter, villageOptions }: Props) => {
+const CharacterEdit = ({ setCharacters, character, setEditingCharacter, villageOptions, professions }: Props) => {
     const [changedCharacter, setChangedCharacter] = useState<CharacterInputDTO>({
         name: '',
         profession: '',
@@ -71,11 +73,12 @@ const CharacterEdit = ({ setCharacters, character, setEditingCharacter, villageO
               </div>
               <div className="input-widget">
                   <label htmlFor="profession">Beruf/Aufgabe</label>
-                  <input
-                      type="text"
+                  <CreatableSelect
                       name="profession"
-                      value={changedCharacter.profession}
-                      onChange={(e: ChangeEvent<HTMLInputElement>) => setChangedCharacter({ ...changedCharacter, profession: e.currentTarget.value })}
+                      value={{value: changedCharacter.profession, label: changedCharacter.profession}}
+                      options={professions}
+                      onChange={(newValue) => setChangedCharacter({ ...changedCharacter, profession: newValue?.value ?? '' })}
+                      classNamePrefix="select"
                   />
               </div>
               <div className="input-widget">
