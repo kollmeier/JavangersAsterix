@@ -97,6 +97,13 @@ const CharactersPage: React.FC = () => {
             <h2>Charaktere</h2>
 
             <ul className="character-list">
+                <li className="character-card">
+                    {characterId !== 'add' ? (
+                        <Link to="/characters/add" className="centered circle-button"><FontAwesomeIcon icon={faPlus}/> Charakter hinzufügen</Link>
+                    ) : (
+                        <CharacterAdd setCharacters={setCharacters} villageOptions={villageOptions} professions={professions} />
+                    )}
+                </li>
                 {characters.map((character) => (
                     <li className="character-card" key={character.id}>
                         {((editingCharacter?.id ?? characterId) !== character.id) ? (
@@ -110,13 +117,6 @@ const CharactersPage: React.FC = () => {
                         )}
                     </li>
                 ))}
-                <li className="character-card">
-                    {characterId !== 'add' ? (
-                        <Link to="/characters/add" className="centered circle-button"><FontAwesomeIcon icon={faPlus}/> Charakter hinzufügen</Link>
-                    ) : (
-                        <CharacterAdd setCharacters={setCharacters} villageOptions={villageOptions} professions={professions} />
-                    )}
-                </li>
             </ul>
             <ToastContainer
                 aria-label="ToastContainer"

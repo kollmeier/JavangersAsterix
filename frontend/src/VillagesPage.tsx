@@ -99,6 +99,13 @@ const VillagesPage: React.FC = () => {
             <h2>Dörfer</h2>
 
             <ul className="village-list">
+                <li className="village-card">
+                    {villageId !== 'add' ? (
+                        <Link to="/villages/add" className="centered circle-button"><FontAwesomeIcon icon={faPlus}/> Dorf hinzufügen</Link>
+                    ) : (
+                        <VillageAdd setVillages={setVillages} characterOptions={CharacterOptionsConverter.convert(characterOptions)} />
+                    )}
+                </li>
                 {villages.map((village) => (
                     <li className="village-card" key={village.id}>
                         {((editingVillage?.id ?? villageId) !== village.id) ? (
@@ -111,13 +118,6 @@ const VillagesPage: React.FC = () => {
                         )}
                     </li>
                 ))}
-                <li className="village-card">
-                    {villageId !== 'add' ? (
-                        <Link to="/villages/add" className="centered circle-button"><FontAwesomeIcon icon={faPlus}/> Dorf hinzufügen</Link>
-                    ) : (
-                        <VillageAdd setVillages={setVillages} characterOptions={CharacterOptionsConverter.convert(characterOptions)} />
-                    )}
-                </li>
             </ul>
             <ToastContainer
                 aria-label="ToastContainer"

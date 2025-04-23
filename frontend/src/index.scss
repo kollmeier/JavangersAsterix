@@ -12,9 +12,9 @@ $color-light-link-hover: #535bf2;
 $color-light-button-bg: #888888;
 $color-light-button-text: #f9f9f9;
 $color-light-button-border-hover: #777777;
-$color-light-input-border: #777777;
+$color-light-input-border: #213547;
 $color-light-input-label: #777777;
-$color-light-card-border: #888888;
+$color-light-card-border: #213547;
 
 // Dark Theme Colors (Overrides in second :root)
 $color-dark-text: #213547;
@@ -147,6 +147,8 @@ button, .button {
   display: inline-block;
   padding: $padding-input-vertical $padding-input-horizontal;
   border: 1px solid $color-light-input-border;
+  border-radius: 0.3rem;
+  box-shadow: inset 2px 2px 3px -3px #213547;
   line-height: 1rem; // Added from form context
 
   input {
@@ -233,12 +235,14 @@ a.close-button {
   row-gap: $gap-list;
   flex-wrap: wrap;
   position: relative;
-  margin: 0; // Added for consistency
+  margin: 1rem; // Added for consistency
 }
 
 %entity-card-base {
   padding: $padding-base;
   border: $color-light-card-border solid 1px; // Use variable
+  border-radius: 0.5rem;
+  box-shadow: 2px 2px 5px -1px $color-light-card-border;
   flex-grow: 1;
   flex-basis: 25%;
   max-width: 25%;
