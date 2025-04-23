@@ -114,7 +114,7 @@ const CharactersPage: React.FC = () => {
                     {characterId !== 'add' ? (
                         <Link to="/characters/add" className="centered circle-button"><FontAwesomeIcon icon={faPlus}/> Charakter hinzufügen</Link>
                     ) : (
-                        <CharacterAdd setCharacters={setCharacters} villageOptions={villageOptions} />
+                        <CharacterAdd setCharacters={setCharacters} villageOptions={villageOptions} professions={professions} />
                     )}
                 </li>
             </ul>
