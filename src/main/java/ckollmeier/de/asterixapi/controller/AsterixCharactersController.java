@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
  * often interacting with services, data providers, and converters.
  */
 @RestController
-@RequestMapping("/asterix/characters")
+@RequestMapping("/api/asterix/characters")
 @RequiredArgsConstructor
 public class AsterixCharactersController {
 

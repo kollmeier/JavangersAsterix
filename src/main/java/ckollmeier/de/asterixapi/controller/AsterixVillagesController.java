@@ -26,7 +26,7 @@ import java.util.List;
  * often interacting with services, data providers, and converters.
  */
 @RestController
-@RequestMapping("/asterix/villages")
+@RequestMapping("/api/asterix/villages")
 @RequiredArgsConstructor
 public class AsterixVillagesController {
 
