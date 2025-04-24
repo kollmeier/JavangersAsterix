@@ -17,6 +17,7 @@ const App: React.FC = () => {
                         <Route path="villages//*" element={<VillagesPage />} />
                         <Route path="villages/:villageId/edit" element={<VillagesPage />} />
                         <Route path="villages/:villageId/*" element={<VillagesPage />} />
+                        <Route path="/" element={<CharactersPage />} />
                     </Route>
                 </Routes>
             </div>

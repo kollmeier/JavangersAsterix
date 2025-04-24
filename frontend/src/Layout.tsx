@@ -1,4 +1,5 @@
 import { Outlet, NavLink } from "react-router-dom";
+import {Flip, ToastContainer} from "react-toastify";
 
 const Layout = () => {
     return (
@@ -15,6 +16,20 @@ const Layout = () => {
             </nav>
 
             <Outlet />
+            <ToastContainer
+                aria-label="ToastContainer"
+                position="top-left"
+                autoClose={1200}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={true}
+                rtl={false}
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Flip}
+            />
+
         </div>
     )
 };

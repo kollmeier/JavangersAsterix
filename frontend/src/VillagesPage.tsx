@@ -6,7 +6,7 @@ import VillageEdit from "./VillageEdit.tsx";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faEdit} from '@fortawesome/free-solid-svg-icons/faEdit';
 import {faTrash} from '@fortawesome/free-solid-svg-icons/faTrash';
-import {Bounce, toast, ToastContainer} from 'react-toastify';
+import {toast} from 'react-toastify';
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 import VillageAdd from "./VillageAdd.tsx";
 import CharacterForSelect from "./interfaces/CharacterForSelect.ts";
@@ -119,21 +119,6 @@ const VillagesPage: React.FC = () => {
                     </li>
                 ))}
             </ul>
-            <ToastContainer
-                aria-label="ToastContainer"
-                position="top-left"
-                autoClose={1800}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick={false}
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                transition={Bounce}
-            />
-
         </div>
     );
 };
